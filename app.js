@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/",function(req, res) {
   //res.render("socket");
-  send("hello world")
+  res.send("hello world")
 });
 
 io.on('connection', function(socket) {
