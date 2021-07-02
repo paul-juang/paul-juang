@@ -12,7 +12,8 @@ app.set("views", path.join(__dirname, "views"));
 const PORT = process.env.PORT || 3000;
 
 app.get("/",function(req, res) {
-  res.render("socket");
+  //res.render("socket");
+  send("hello world")
 });
 
 io.on('connection', function(socket) {
