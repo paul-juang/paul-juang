@@ -11,17 +11,19 @@ app.set("views", path.join(__dirname, "views"));
 
 const PORT = process.env.PORT || 3000;
 
+const votes = {yes:0, no:0, maybe:0}
+
 app.get("/",function(req, res) {
-  res.render("socket");
+  res.render("socket", {votes: votes});
 });
 
 io.on('connection', function(socket) {
-  console.log('Client connected: '+socket.id)
-
-  socket.on('message',function(data) {
-    socket.broadcast.emit("message",data)
+  socket.on('submit vote',function(data) { 	
+  	let selection = data["selection"]
+  	votes[selection] += 1
+    io.sockets.emit("announce vote", votes)//io.emit("message", votes) also works
+    //socket.emit,socket.broadcast.emit
   })
-
 })
 
 server.listen(PORT, function() {

@@ -10,23 +10,37 @@
 
 </head>
 <body>
-   <h1></h1>
-   <input type="text" id="message"/>
-   <button id="btn">send</button>
+   <h1>Socket Io</h1>
+   <div>Yes vote:<span id="yes"><%= votes.yes %></span></div>
+   <div>Yes vote:<span id="no"><%= votes.no %></span></div>
+   <div>Yes vote:<span id="maybe"><%= votes.maybe %></span></div>
+
+
+   <div>
+     <button data-vote = "yes">yes</button>
+     <button data-vote = "no">no</button>
+     <button data-vote = "maybe">maybe</button>
+   </div>
+
+   
 <script>
 
   const socket = io();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("button").forEach(button => {
+      button.addEventListener("click", e => {
+        let selection = e.target.dataset.vote
+        socket.emit('submit vote', {selection: selection})
+      })
+    })
+  })
   
-  socket.on('message', function(data) {
-  	document.querySelector("h1").innerHTML = data
-  })
-
-  document.querySelector("#btn").addEventListener("click", function() {
-    let message = document.querySelector("#message").value;
-  	socket.emit('message', message)
-    document.querySelector("#message").value =''
-  })
-
+  socket.on('announce vote', function(data) {
+    document.querySelector("#yes").innerHTML = data["yes"]
+    document.querySelector("#no").innerHTML = data["no"]
+    document.querySelector("#maybe").innerHTML = data["maybe"]
+  })  
 </script>
 </body>
 </html>
