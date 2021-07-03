@@ -25,22 +25,25 @@
    
 <script>
 
-  const socket = io();
 
   document.addEventListener("DOMContentLoaded", () => {
+    const socket = io();
+
     document.querySelectorAll("button").forEach(button => {
       button.addEventListener("click", e => {
         let selection = e.target.dataset.vote
         socket.emit('submit vote', {selection: selection})
       })
     })
+
+    socket.on('announce vote', function(data) {
+      document.querySelector("#yes").innerHTML = data["yes"]
+      document.querySelector("#no").innerHTML = data["no"]
+      document.querySelector("#maybe").innerHTML = data["maybe"]
+    })  
+
   })
   
-  socket.on('announce vote', function(data) {
-    document.querySelector("#yes").innerHTML = data["yes"]
-    document.querySelector("#no").innerHTML = data["no"]
-    document.querySelector("#maybe").innerHTML = data["maybe"]
-  })  
 </script>
 </body>
 </html>
