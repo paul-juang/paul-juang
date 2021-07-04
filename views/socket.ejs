@@ -49,7 +49,7 @@
       document.querySelectorAll("button").forEach(button => {
         button.addEventListener("click", e => {
           let selection = e.target.dataset.vote
-          socket.emit('submit vote', {selection: selection})
+          socket.emit('submit vote', {selection})
         })
       })
 

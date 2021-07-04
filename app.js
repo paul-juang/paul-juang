@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 const votes = {yes:0, no:0, maybe:0}
 
 app.get("/", function(req, res) {
-  res.render("socket", {votes: votes});
+  res.render("socket", {votes});
 });
 
 io.on('connection', function(socket) {
