@@ -24,32 +24,33 @@ const formatMessage = require('./utils/messages');
 
 const {userJoin,getCurrentUser,userLeave,getRoomUsers} = require('./utils/users');
 
-const botName = 'ChatCord Bot';
+const botName = 'ChatRoom';
 
 app.get("/", function(req, res) {
   res.render("index");
 });
 
 app.get("/chat", function(req, res) {
-  res.render("chat");
+  let params = req.query;
+  res.render("chat", {params});
 });
 
 // Run when client connects
 io.on('connection', socket => {
   socket.on('joinRoom', ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
+    const user = userJoin(socket.id, username, room); //save user to DB
 
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+    socket.emit('message', formatMessage(botName, `Hi ${username}, welcome to join ${room}!`));
 
     // Broadcast when a user connects
     socket.broadcast
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `${user.username} has joined the chat`)
+        formatMessage(botName, `${user.username} has joined this chatroom`)
       );
 
     // Send users and room info
@@ -86,4 +87,6 @@ io.on('connection', socket => {
 });
 
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+});
