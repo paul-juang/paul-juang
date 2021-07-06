@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using API Keys</title>
+  </head>
+  <body>
+    <main>
+      <form method="POST" id="regForm" action="/">
+        <fieldset>
+          <legend>Register for API KEY</legend>
+          <p>
+            As a developer we are registering for a key for our website domain.
+            In this example our domain is http://localhost:5500
+          </p>
+          <div class="formBox">
+            <label for="email">Email</label>
+            <input id="email" type="email" autocomplete="off" />
+          </div>
+          <div class="formBox">
+            <button id="btnReg">Register</button>
+          </div>
+          <pre class="response">
+            <!-- response from server goes here -->
+          </pre>
+        </fieldset>
+      </form>
+
+      <form method="GET" id="getForm">
+        <fieldset>
+          <legend>Get Cheeses</legend>
+          <div class="formBox">
+            <button id="btnAll">Get All Cheeses</button>
+          </div>
+          <pre class="response">
+            <!-- response from server goes here -->
+          </pre>
+        </fieldset>
+      </form>
+
+      <form method="POST" id="addForm">
+        <fieldset>
+          <legend>Add Cheese</legend>
+          <div class="formBox">
+            <label for="cheese">Cheese Name</label>
+            <input type="text" id="cheese" />
+          </div>
+          <div class="formBox">
+            <button id="btnAdd">Add a New Cheese</button>
+          </div>
+          <pre class="response">
+            <!-- response from server goes here -->
+          </pre>
+        </fieldset>
+      </form>
+    </main>     
+    <!--script src="/js/api.js"></script-->
+<script>
+  fetch("/", {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify({name: "paul"}) // body data type must match "Content-Type" header
+  }).then(function(res) {
+    return res.json()
+  }).then(function(data) {
+    console.log('data', data)
+  });
+</script>
+  </body>
+</html>

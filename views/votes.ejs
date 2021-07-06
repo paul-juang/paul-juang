@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script-->
+<script src="/socket.io/socket.io.js"></script>
+<style>
+  
+  body { 
+    margin:10; 
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+  }      
+
+  button {
+    width: 60px;
+    height: 30px;
+    margin-top:20px;
+    margin-left:8px;
+    padding: 4px;
+    font-weight: bold;
+  }
+</style>
+ 
+<title>Socket Io</title>
+
+</head>
+<body>
+   <h1>Socket Io</h1>
+   <div>Yes vote: <span id="yes"><%= votes.yes %></span></div>
+   <div>No  vote: <span id="no"><%= votes.no %></span></div>
+   <div>Maybe vote: <span id="maybe"><%= votes.maybe %></span></div>
+
+
+   <div>
+     <button data-vote = "yes">Yes</button>
+     <button data-vote = "no">No</button>
+     <button data-vote = "maybe">Maybe</button>
+   </div>
+
+   
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const socket = io();
+
+      document.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", e => {
+          let selection = e.target.dataset.vote
+          socket.emit('submit vote', {selection})
+        })
+      })
+
+      socket.on('announce vote', function(data) {
+        document.querySelector("#yes").innerHTML = data["yes"]
+        document.querySelector("#no").innerHTML = data["no"]
+        document.querySelector("#maybe").innerHTML = data["maybe"]
+      })  
+
+    })
+    
+  </script>
+</body>
+</html>

@@ -1,33 +1,50 @@
-//socket.io demo
+const https = require('https');
+
+const fs = require('fs');
+
+const async = require("async");
+
 const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+
 const path = require('path');
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+const app = express();
+
+require('dotenv').config()
+
+const mongoose = require('mongoose');
+
+//mongoose.Promise = global.Promise;
+
+mongoose.connect(process.env.MONGODB_URI,{useUnifiedTopology:true, useNewUrlParser:true}); 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Database connected ...");
+});
+
+const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000;
 
-const votes = {yes:0, no:0, maybe:0}
+//app.set
+app.set("view engine", "ejs");
 
-app.get("/", function(req, res) {
-  res.render("socket", {votes});
+app.set("views", path.join(__dirname, "views"));
+
+//middleware
+app.use(express.static(__dirname));
+
+app.use(express.static(path.join(__dirname,"public")));
+
+app.use(express.urlencoded({extended: true}));
+
+app.use(express.json());
+
+//use router
+app.use(require('./routes/accounting'));
+
+app.listen(PORT, function() {
+    console.log('Server listening on ' + PORT);
 });
 
-io.on('connection', function(socket) {
-	
-  socket.on('submit vote',function(data) { 	
-  	let selection = data["selection"]
-  	votes[selection] += 1 	
-    io.sockets.emit("announce vote", votes)//io.emit("message", votes) also works
-    //socket.emit,socket.broadcast.emit
-  })
-})
-
-server.listen(PORT, function() {
-  console.log('server running on '+ PORT) 
-})

@@ -1,0 +1,64 @@
+
+/* -------------=========================
+          General Style
+----------------------------------------*/
+     
+body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em;
+	color: #333;
+	margin:20px;
+	padding:20px;
+}
+
+
+/*Medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {
+	body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em;
+	color: #333;
+	margin:16px;
+	padding:16px;  
+  }
+
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) { 	
+	body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em;
+	color: #333;
+	margin:12px;
+	padding:12px;  
+  }
+
+}
+
+/* ipad mini   */
+@media (max-width: 702.98px) {
+	body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em;
+	color: #333;
+	margin:10px;
+	padding:10px;  
+  }
+
+}
+/* Extra small devices (portrait phones, less than 576px)*/
+/* iphone5s and iphone6s+   */
+@media (max-width: 575.98px) {
+	body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.8em;
+	color: #333;
+	margin:0px;
+	padding:0px;
+   }
+
+   .flex {
+   	width: 9.6em;
+   }
+}

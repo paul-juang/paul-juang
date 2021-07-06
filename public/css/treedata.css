@@ -1,0 +1,253 @@
+body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	color: #333;
+	margin:20px;
+	padding:20px;
+}
+
+#return {
+	position: fixed;
+	top: 4px;
+	left: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#get-button {
+	font-weight: 40px;
+	text-align: center;
+}
+
+h6 {
+	font-weight: bold;
+	text-align: center;
+}
+
+#name,#parent,#idx,#date {
+	font-weight: 40px;
+	margin: 5px;
+}	
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	border: 1px solid rgb(98, 98, 251);
+}
+
+th, td {
+	text-align: left;
+	padding: 0.25em;
+}
+
+th {
+	font-weight: bold;
+	background-color: #f2f2f2
+}
+
+
+tr:nth-child(even) {
+	background-color: #f2f2f2
+}
+
+.update-button,.delete-button {
+	width: 5em;
+	height: 2.5em;
+	font-size: 0.75em;
+	font-weight: bold;
+	text-align: center;
+}
+
+/*Medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {
+	body {
+		font-family: 'Montserrat', sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+		color: #333;
+		margin:5px;
+		padding:5px;
+	}
+
+	
+	thead {
+		font-size: 0.96em;
+		font-weight: bold;
+	}	       
+
+	th, td {
+		text-align: left;
+		padding: 0.1em;
+	}
+
+	#name,#parent,#idx,#date {
+		width: 10em;
+	}
+
+	.name,.parent,.idx,.date {
+		width: 8em;
+	}
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) { 
+	body {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 100;
+		color: #333;
+		margin:0.6em;
+		padding:0.6em;
+	}
+
+	#name,#parent,#idx,#date {
+		width: 10em;
+	}
+	
+
+	#submit {
+		margin-right : 0.25em;
+	}
+
+	
+
+	thead {
+		font-size: 0.96em;
+		font-weight: bold;
+	}	       
+
+	th, td {
+		text-align: left;
+		padding: 0.2em;
+	}
+
+	
+	.name,.parent,.idx,.date {
+		width: 8em;
+	}
+
+	.update-button,.delete-button {
+		width: 4.8em;
+		height: 2.4em;
+		font-size: 0.96em;
+		text-align: center;
+	}
+}
+
+/* ipad mini   */
+@media (max-width: 702.98px) {
+	body {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 100;
+		color: #333;
+		margin:0.5em;
+		padding:0.5em;
+	}
+
+	#name,#parent,#idx,#date {
+		width: 10em;
+	}
+	
+	.name,.parent,.idx,.date {
+		width: 8em;
+	}
+	#submit {
+		margin-right : 0.25em;
+	}
+
+	
+
+	thead {
+		font-size: 0.8em;
+		font-weight: bold;
+	}	       
+
+	th, td {
+		text-align: left;
+		padding: 0.2em;
+	}
+
+	
+	.update-button,.delete-button {
+		width: 4.8em;
+		height: 2.4em;
+		font-size: 0.8em;
+		text-align: center;
+	}
+
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+/* iphone5s and iphone6s+   */
+@media (max-width: 575.98px) {
+	body {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 100px;
+		color: #333;
+		margin:0.2em;
+		padding:0.2em;
+	}
+
+	#name,#parent,#idx {
+		width: 8.4em;
+		font-size: 2.2vw;
+		font-weight: bold;
+		margin: 0.2em;
+
+	}
+
+	#date {
+		width: 10.6em;
+		font-size: 2.2vw;
+		font-weight: bold;
+		margin: 0.2em;
+
+	}
+	
+	#submit {
+		width: 4.8em;
+		height: 2.4em;
+		font-size: 2vw;
+		padding: 0.12em;
+		text-align: center;
+	}
+	.name,.parent,.idx {
+		width: 4.8em;
+		font-size: 2vw;
+		font-weight: bold;
+
+	}
+	
+	.date {
+		width: 10.2em;
+		font-size: 2vw;
+		font-weight: bold;
+
+	}
+	
+	thead {
+		font-size: 2vw;
+		font-weight: bold;
+	}	       
+
+	th, td {
+		text-align: left;
+		padding: 0.12em;
+	}
+
+	
+	
+	.update-button,.delete-button {
+		width: 4.4em;
+		height: 2.4em;
+		font-size: 2vw;
+		margin: 0.12em;
+		padding: 0.12em;
+		text-align: center;
+	}
+
+}
+
+
+
+

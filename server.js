@@ -24,15 +24,17 @@ const formatMessage = require('./utils/messages');
 
 const {userJoin,getCurrentUser,userLeave,getRoomUsers} = require('./utils/users');
 
-const botName = 'ChatRoom';
+const votes = {yes:0, no:0, maybe:0} //for socket
+
+const botName = '聊天室';
 
 app.get("/", function(req, res) {
-  res.render("index");
+  res.render("socket");
 });
 
-app.get("/chat", function(req, res) {
+app.get("/chatroom", function(req, res) {
   let params = req.query;
-  res.render("chat", {params});
+  res.render("chatroom", {params});
 });
 
 // Run when client connects
@@ -43,14 +45,14 @@ io.on('connection', socket => {
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, `Hi ${username}, welcome to join ${room}!`));
+    socket.emit('message', formatMessage(botName, `歡迎${username}加入${room}群組!`));
 
     // Broadcast when a user connects
     socket.broadcast
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `${user.username} has joined this chatroom`)
+        formatMessage(botName, `${user.username}加入聊天室`)
       );
 
     // Send users and room info
@@ -74,7 +76,7 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        formatMessage(botName, `${user.username} has left the chat`)
+        formatMessage(botName, `${user.username}已經離開聊天室`)
       );
 
       // Send users and room info
@@ -86,7 +88,19 @@ io.on('connection', socket => {
   });
 });
 
+app.get("/votes", function(req, res) {
+  res.render("votes", {votes});
+});
 
+io.on('connection', function(socket) {
+  
+  socket.on('submit vote',function(data) {  
+    let selection = data["selection"]
+    votes[selection] += 1   
+    io.sockets.emit("announce vote", votes)//io.emit("message", votes) also works
+    //socket.emit,socket.broadcast.emit
+  })
+})
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 });
