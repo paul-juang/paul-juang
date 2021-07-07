@@ -11,25 +11,17 @@ const path = require('path');
 
 const app = express();
 
+require('dotenv').config()
 
 const mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
-
-
-const mongoUri = 'mongodb+srv://paul:Jyuhnbor1234@cluster0.khrxx.mongodb.net/nodeappdb?retryWrites=true&w=majority'||process.env.MONGODB_URI;
-
-mongoose.connect(mongoUri,{ 
+mongoose.connect(process.env.MONGODB_URI,{ 
   useUnifiedTopology:true, 
   useNewUrlParser:true,
   useCreateIndex:true 
 })
 .then(()=> console.log("Database connected ..."))
 .catch((err)=> console.log(err))   
-
-const bodyParser = require('body-parser');
-
-const cookieParser = require('cookie-parser');
 
 //for get /nasa
 const https = require("https")
@@ -52,14 +44,14 @@ app.use(express.static(__dirname));
 
 app.use(express.static(path.join(__dirname,"public")));
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.use(cookieParser());
+//app.use(cookieParser());
 
 const store = new MongodbSession({
-	uri: mongoUri,
+	uri: process.env.MONGODB_URI,
 	collection: "sessions"
 })
 
@@ -76,12 +68,9 @@ const User = require("./models/user");
 
 
 const authUser = async(req,res,next) => {
-    console.log("req.cookie.sid:",req.cookies["connect.sid"]);
-    console.log("req.sessionID:",req.sessionID);
+    console.log("req.cookie:", req.cookies);
     console.log("req.session:",req.session);
-      console.log('req.headers.origin', req.headers.origin);
-
-
+    console.log("req.sessionID:",req.sessionID);
     if (req.session.isAuth) {
       let user = await User.findOne({_id: req.session.userId})
         return res.send(`${user.name} already logged in`)
@@ -90,7 +79,7 @@ const authUser = async(req,res,next) => {
    }
 
 app.get("/", authUser, async (req, res) => {
-    console.log('req.headers/', req.headers);
+    console.log('req.headers', req.headers);
 
     res.render("login")
 });

@@ -6,7 +6,7 @@ const express = require('express');
 
 const router = express.Router();
 //to be update
-const Ledgerx = require('../models/ledger');
+const Ledger = require('../models/ledger');
 //
 
 //home page
@@ -35,7 +35,7 @@ router.post("/ledger",function(req, res) {
 
   async.waterfall([
     function(callback) {
-      Ledgerx.insertMany(arrOfobj, function(err,data) {
+      Ledger.insertMany(arrOfobj, function(err,data) {
         if (err) {
           return callback(err)
         }
@@ -45,7 +45,7 @@ router.post("/ledger",function(req, res) {
       })
     },
     function(callback) {
-      Ledgerx.find({}, function(err,data) {
+      Ledger.find({}, function(err,data) {
         if (err) {
           return callback(err)
         }

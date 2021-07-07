@@ -1,1 +1,1 @@
-[{"acctno":"1111","acctname":"庫存現金","drttl":1100,"crttl":0,"acctclass":"流動資產","printorder":"11"},{"acctno":"2111","acctname":"銀行借款","drttl":0,"crttl":1100,"acctclass":"流動負債","printorder":"21"},{"acctname":"總計","drttl":1100,"crttl":1100}]
+[{"acctno":"1111","acctname":"庫存現金","drttl":1000,"crttl":0,"acctclass":"流動資產","printorder":"11"},{"acctno":"2111","acctname":"銀行借款","drttl":0,"crttl":1000,"acctclass":"流動負債","printorder":"21"},{"acctname":"總計","drttl":1000,"crttl":1000}]

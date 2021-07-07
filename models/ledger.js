@@ -11,4 +11,4 @@ let ledgerSchema = new Schema ({
     reference: { type: String}
 });
 
-module.exports = mongoose.model('Ledgerx',ledgerSchema);
+module.exports = mongoose.model('Ledger',ledgerSchema);
