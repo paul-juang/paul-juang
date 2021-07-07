@@ -16,7 +16,6 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-//mongoose.connect('mongodb://localhost:27017/testdatabase') 
 
 const mongoUri = 'mongodb+srv://paul:Jyuhnbor1234@cluster0.khrxx.mongodb.net/nodeappdb?retryWrites=true&w=majority'||process.env.MONGODB_URI;
 
