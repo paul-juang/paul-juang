@@ -43,6 +43,9 @@ app.use(express.json());
 
 //use router
 app.use(require('./routes/accounting'));
+app.use(require('./routes/agk'));
+app.use(require('./routes/misc'));
+
 
 app.listen(PORT, function() {
     console.log('Server listening on ' + PORT);

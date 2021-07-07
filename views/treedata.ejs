@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CRUD tree data - server</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/treedata.css">
+	<style>
+     .danger {
+      border: 1px solid red;
+     }
+
+     #errmsg1 {
+      font-size: 0.8em;
+      color: red;
+      text-align: center;
+     }
+
+     #errmsg2 {
+      font-size: 0.8em;
+      color: red;
+      text-align: center;
+     }
+
+     th, td {
+      text-align: center;
+     }
+
+     td > input {
+      text-align: center;
+     }
+
+   </style>
+  
+
+</head>
+
+<body>
+
+	
+<!--div id="drawtree" title="列印">
+	<a href="/drawtree">
+	  <img src="svg/si-glyph-bed.svg"/>	
+	</a>
+</div>
+</br-->
+<div class="content-padding clearfix">
+	<button id="get-button" class="btn btn-primary btn-lg btn-block">讀取資料</button>
+</div>
+
+<div class="content-padding clearfix" id = "create-div">
+	<h6>登錄</h6>
+	<hr>
+    <p id="errmsg1"></p>
+	<form id="create-form"  class="form-inline" role="form">
+		<div class="form-group">
+			<input type="text" class="form-group" placeholder="球號" name="name" id="name" >
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-group" placeholder="安置 " name="parent" id="parent">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-group" placeholder="引導 " name="idx" id="idx">
+		</div>
+		<div class="form-group">
+			<input type="date" class="form-group" placeholder="日期 "  name="date" id="date"  />
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary" id ="submit">加入</button>
+		</div>	
+	</form>
+
+</div>
+
+<hr>
+<p id="errmsg2"></p>
+<div class="content-padding clearfix " id="table-div">
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-light">
+			<tr>   	
+				<th>球號</th>
+				<th>安置</th>
+				<th>引導</th>
+				<th>註冊日期</th>
+				<th></th>
+				<th></th>				
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/treedata.js"></script>
+</body>
+</html>
