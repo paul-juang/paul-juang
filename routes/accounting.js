@@ -39,8 +39,6 @@ router.post("/ledger",function(req, res) {
         if (err) {
           return callback(err)
         }
-        //res.send("post success!");
-
         callback(null) 
       })
     },
@@ -55,16 +53,16 @@ router.post("/ledger",function(req, res) {
     function(arg1,callback) {
       let filterarr = arg1.filter(function(obj) {
          return /^\d{4}-\d{2}-\d{2}$/.test(obj.date) && obj.date > "2018-08-31";
-        // return /^\d{4}-\d{2}-\d{2}$/.test(obj.date);
      })
-//
+
      let json = JSON.stringify(filterarr);
       fs.writeFile('acctdate.json', json, 'utf8', function(err) { 
         if (err) {
           console.log("write acctdate.json error!")
+          //return callback(err)
         }
       })
-//
+
       callback(null,filterarr) 
     },
     function(arg1,callback) {
@@ -77,16 +75,16 @@ router.post("/ledger",function(req, res) {
       let acctObj = arrofaccts.reduce(function(acctobj,obj) {
        acctobj[obj.acctno] = acctobj[obj.acctno] || [];
        acctobj[obj.acctno].push(
-       {
-        acctno: obj.acctno,
-        acctname: obj.acctname,
-        dr:obj.dr,
-        cr:obj.cr,
-        date:obj.date
-      }
-      )
+         {
+          acctno: obj.acctno,
+          acctname: obj.acctname,
+          dr:obj.dr,
+          cr:obj.cr,
+          date:obj.date
+         }
+       )
        return acctobj; 
-     }, {});
+      }, {});
 
       for (let i in acctObj) {
 
@@ -133,16 +131,18 @@ router.post("/ledger",function(req, res) {
      }
      let json = JSON.stringify(acctObj);
      fs.writeFile('Ledger.json', json, 'utf8', function(err) { 
-      if (err) {
-        console.log("write Ledger.json error!")
-      }
-    }) 
+        if (err) {
+          console.log("write Ledger.json error!")
+          return callback(err)
+        }
+     }) 
      callback(null, arrofaccts)     
    },
    function(arg1,callback) {
     let jsonArr = arg1;
     fs.readFile("acctclass.json","utf8", function(err,results) {  //acctClassRef
       if (err) {
+        console.log("read acctclass.json error!")
         return callback(err);
       }
       let acctclassref = JSON.parse(results);
@@ -152,26 +152,26 @@ router.post("/ledger",function(req, res) {
   function(arg1,arg2,callback) { 
 
     //temparary fix - duplicate bank liabity account
-let filtertemp = arg1.filter(function(obj) {
-   return obj.acctno !== "2112";
-  })
-//
+    let filtertemp = arg1.filter(function(obj) {
+     return obj.acctno !== "2112";
+    })
+    //
     let jsonArr = filtertemp;
     let acctclassref = arg2;
 
     let acctObj = jsonArr.reduce(function(acctobj,obj) {
      acctobj[obj.acctno] = acctobj[obj.acctno] || [];
      acctobj[obj.acctno].push(
-     {
-      acctno: obj.acctno,
-      acctname: obj.acctname,
-      dr:obj.dr,
-      cr:obj.cr,
-      date:obj.date
-    }
-    )
+       {
+        acctno: obj.acctno,
+        acctname: obj.acctname,
+        dr:obj.dr,
+        cr:obj.cr,
+        date:obj.date
+       }
+     )
      return acctobj; 
-   }, {});
+    }, {});
 
     let  totalAcctArr = [];
 
@@ -217,7 +217,6 @@ let filtertemp = arg1.filter(function(obj) {
           case "2114":
           acctclass = "流動負債";
           break;
-
 
           case "3114":
           acctclass = "資本";
@@ -293,17 +292,18 @@ let filtertemp = arg1.filter(function(obj) {
     })
 
     totalAcctArr.push(
-    {
-      acctname: "總計",
-      drttl: gttldr,
-      crttl: gttlcr
-    }
+      {
+        acctname: "總計",
+        drttl: gttldr,
+        crttl: gttlcr
+      }
     )
 
     let json = JSON.stringify(totalAcctArr);
     fs.writeFile('trialBalance.json', json, 'utf8', function(err) { 
       if (err) {
         console.log("write trialBalance.json error!")
+        return callback(err)
       }
     })
 
@@ -317,12 +317,11 @@ let filtertemp = arg1.filter(function(obj) {
   let reducerevenue = filterrevnue.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
@@ -333,12 +332,11 @@ let filtertemp = arg1.filter(function(obj) {
   let reducepurchase = filterpurchase.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
@@ -351,17 +349,16 @@ let filtertemp = arg1.filter(function(obj) {
   let reduceexpense = filterexpense.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
 
-    //calculatr net incom or loss
+    //calculate net incom or loss
     let filternet = arg1.filter(function(obj) {
         return obj.acctno >= "4000" && obj.acctno < "7000"
     });
@@ -372,7 +369,6 @@ let filtertemp = arg1.filter(function(obj) {
     filternet.forEach(function(obj) {
        gttldr += obj.drttl;
        gttlcr += obj.crttl;
-
     })
 
     let diff = gttlcr - gttldr;
@@ -420,14 +416,12 @@ let filtertemp = arg1.filter(function(obj) {
     fs.writeFile('incomeStatement.json', json, 'utf8', function(err) { 
       if (err) {
         console.log("write incomestatementArr.json error!")
+        return callback(err)
       }
     })
 
   callback(null,arg1);
-
 },
-
-
 function(arg1,callback) {
   let filtercurrentasset = arg1.filter(function(obj) {
    return obj.acctno >= "1000" && obj.acctno < "1400";
@@ -436,12 +430,11 @@ function(arg1,callback) {
   let reducecurrentasset = filtercurrentasset.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
@@ -469,44 +462,41 @@ function(arg1,callback) {
   let reducecurrentliability = filtercurrentliability.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
 
   let filterlongtermliability = arg1.filter(function(obj) {
    return obj.acctno >= "2321" && obj.acctno < "2400";
- })
+  })
   let reducelongtermliability = filterlongtermliability.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
 
   let filtercapital = arg1.filter(function(obj) {
    return obj.acctno >= "3111" && obj.acctno < "3200";
- })
+  })
   let reducecapital = filtercapital.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
@@ -518,12 +508,11 @@ function(arg1,callback) {
   let reduceretainedearing = filterretainedearning.reduce(function(reduceobj,obj) {
     reduceobj[obj.acctclass] = reduceobj[obj.acctclass] || [];
     reduceobj[obj.acctclass].push(
-    {
-      acctname: obj.acctname,
-      drttl: obj.drttl,
-      crttl: obj.crttl
-    }
-
+      {
+        acctname: obj.acctname,
+        drttl: obj.drttl,
+        crttl: obj.crttl
+      }
     )
     return reduceobj;
   },{});
@@ -541,16 +530,16 @@ function(arg1,callback) {
   fs.writeFile('balanceSheet.json', json, 'utf8', function(err) { 
     if (err) {
       console.log("write balancesheet.json error!")
+      return callback(err)
     }
   })
   callback(null,"waterfall operation success!")
-
-}
-
+ }
 ],
 function(err,results) {
   if (err) {
     console.log("err.message", err.message);
+    res.send("operation fail!");
   }
   else {
     console.log(results)
@@ -669,7 +658,5 @@ router.get("/init",function(req, res) {
           console.log("Operation Success!!")
         })
 });
-
-
 
 module.exports = router;

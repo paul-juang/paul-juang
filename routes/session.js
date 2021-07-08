@@ -6,15 +6,12 @@ const bcrypt = require('bcryptjs');
 
 const User = require("../models/user");
 
-
 const authUser = async(req,res,next) => {
     /*console.log("req.cookie.sid:",req.cookies["connect.sid"]);
     console.log("req.sessionID:",req.sessionID);
     console.log("req.session:",req.session);*/
     if (req.session.isAuth) {
-      let user = await User.findOne({_id: req.session.userId})
         return res.redirect("/home")
-
       }  
      next()
    }

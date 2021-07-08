@@ -3,6 +3,8 @@ const express = require('express');
 
 const session = require('express-session');
 
+const cookieParser = require('cookie-parser');
+
 const bcrypt = require("bcryptjs") //bcrypt
 
 const MongodbSession = require('connect-mongodb-session')(session);
@@ -48,7 +50,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.json());
 
-//app.use(cookieParser());
+app.use(cookieParser());
 
 const store = new MongodbSession({
 	uri: process.env.MONGODB_URI,
@@ -69,8 +71,9 @@ const User = require("./models/user");
 
 const authUser = async(req,res,next) => {
     console.log("req.cookie:", req.cookies);
-    console.log("req.session:",req.session);
     console.log("req.sessionID:",req.sessionID);
+    console.log("req.session:",req.session);
+
     if (req.session.isAuth) {
       let user = await User.findOne({_id: req.session.userId})
         return res.send(`${user.name} already logged in`)
@@ -79,8 +82,6 @@ const authUser = async(req,res,next) => {
    }
 
 app.get("/", authUser, async (req, res) => {
-    console.log('req.headers', req.headers);
-
     res.render("login")
 });
 
@@ -106,6 +107,7 @@ app.post("/login",async(req, res) => {
         req.session.email = user.email
         req.session.date = new Date().toISOString().split('T')[0]
         req.session.isAuth = true
+        res.cookie('user.id', user._id, { maxAge: 90000, httpOnly: false});
 
         res.json({login:"success"}) 
       } else {

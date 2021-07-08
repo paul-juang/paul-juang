@@ -12,13 +12,13 @@ const app = express();
 
 const session = require('express-session');
 
+const cookieParser = require('cookie-parser');
+
 const MongodbSession = require('connect-mongodb-session')(session);
 
 require('dotenv').config()
 
 const mongoose = require('mongoose');
-
-//mongoose.Promise = global.Promise;
 
 mongoose.connect(process.env.MONGODB_URI,{ 
   useUnifiedTopology:true, 
@@ -27,9 +27,6 @@ mongoose.connect(process.env.MONGODB_URI,{
 })
 .then(()=> console.log("Database connected ..."))
 .catch((err)=> console.log(err))   
-
-
-//const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -47,6 +44,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.json());
 
+app.use(cookieParser());
 
 const store = new MongodbSession({
   uri: process.env.MONGODB_URI,
