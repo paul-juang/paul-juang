@@ -38,7 +38,7 @@ app.set("views", path.join(__dirname, "views"));
 //middleware
 app.use(express.static(__dirname));
 
-app.use(express.static(path.join(__dirname,"public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded({extended: true}));
 
@@ -62,10 +62,9 @@ app.use(session({
 //app.use(require('./routes/session'));
 app.use(require('./routes/accounting'));
 app.use(require('./routes/agk'));
+app.use(require('./routes/loto'));
 app.use(require('./routes/misc'));
-
 
 app.listen(PORT, function() {
     console.log('Server listening on ' + PORT);
 });
-

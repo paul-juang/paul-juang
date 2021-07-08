@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>大樂透</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/css/loto.css">
+
+</head>
+<body>
+
+	<div  id = "div1" class="content-padding clearfix">
+		<hr>
+		<label for="count">讀取大樂透前<input id="count" type="number" value="200"/>期號碼</label>
+		<!--button id="get-button" class="btn btn-primary btn-lg btn-block">讀取資料</button-->
+		<button id="get-button" class="btn btn-primary">確定</button>
+
+
+	</div>
+	<!-- 大樂透最近100期統計數據-->
+	<h5>大樂透前10期統計數據</h5>
+	<h6></h6>
+	<br>
+	<hr>
+
+	<!--div class="container-fluid"-->
+	<div  id = "div1" class="content-padding clearfix">
+
+
+		<ul>
+			<li>備註:平均次數 - 夲期間平均分配次數</li>
+			<li>期數 - 夲期間第n期開出</li>
+			<li>間距 - 最近開出期離下期的間距</li>
+			<li>估計機率 - 以間距估計下期開出機率</li>
+		</ul>
+
+		<table>
+			<thead>
+				<tr>
+					<th>號碼</th>
+					<th>實際次數</th>
+					<th>平均次數</th>
+					<th>差數</th>
+					<th>期數</th>
+					<th>間距</th>
+					<th>估計機率</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+
+		</table>
+	</div>
+
+
+	<!-- add bootsrap script -->
+   <!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script-->
+
+   	<script src="/js/jquery.js"></script>
+   	<script src="/js/loto649.js"></script>
+   	<script src="/js/num649.js"></script>
+
+   </body>
+   </html>

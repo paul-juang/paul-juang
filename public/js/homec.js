@@ -146,14 +146,14 @@ $(function() {
    .appendTo(li5)
 
   let lotostatArr = [
-     "大樂透中獎統計","大樂透統計分析","大樂透號碼摘要","大樂透下期預測",
-     "今彩539中獎統計","今彩539統計分析","今彩539號碼摘要","今彩539下期預測"
+     "大樂透中獎統計","大樂透統計分析","大樂透號碼摘要",
+     "今彩539中獎統計","今彩539統計分析","今彩539號碼摘要"
 
    ]
 
    let lotostatHref = [
-      "/suloto649","/suloto649x","/preloto649","/coloto649x",
-      "/suloto539","/suloto539x","/preloto539","/coloto539x"
+      "/suloto649","/suloto649","/preloto649",
+      "/suloto539","/suloto539","/preloto539"
        //"#","#","#","#","#","#","#","#"
    ]
 
