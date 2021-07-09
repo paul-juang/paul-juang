@@ -208,7 +208,19 @@ $(function() {
      imgFav496,imgFav497,imgFav498,imgFav499,imgFav500
   ];
 
+  let imgUrlArr25 = [
+     imgFav501,imgFav502,imgFav503,imgFav504,imgFav505,
+     imgFav506,imgFav507,imgFav508,imgFav509,imgFav510,
+     imgFav511,imgFav512,imgFav513,imgFav514,imgFav515,
+     imgFav516,imgFav517,imgFav518,imgFav519,imgFav520
+  ];
 
+  let imgUrlArr26 = [
+     imgFav521,imgFav522,imgFav523,imgFav524,imgFav525,
+     imgFav526,imgFav527,imgFav528,imgFav529,imgFav530,
+     imgFav531,imgFav532,imgFav533,imgFav534,imgFav535,
+     imgFav536,imgFav537,imgFav538,imgFav539,imgFav540
+  ];
 
  let imgUrlAll = [];
 
@@ -216,12 +228,13 @@ $(function() {
                 imgUrlArr5,imgUrlArr6,imgUrlArr7,imgUrlArr8,imgUrlArr9,
                 imgUrlArr10,imgUrlArr11,imgUrlArr12,imgUrlArr13,imgUrlArr14,
                 imgUrlArr15,imgUrlArr16,imgUrlArr17,imgUrlArr18,imgUrlArr19,
-                imgUrlArr20,imgUrlArr21,imgUrlArr22,imgUrlArr23,imgUrlArr24
-                );
+                imgUrlArr20,imgUrlArr21,imgUrlArr22,imgUrlArr23,imgUrlArr24,
+                imgUrlArr25,imgUrlArr26
+              );
      
- let max0 = 25;
+ let max0 = 27;
  let m = Math.floor(Math.random()*max0);
- let imgUrlArr = imgUrlAll[m];
+ let imgUrlArr = imgUrlAll[26];
     
  displayImgbySeq(imgUrlArr);
  //displayimgPromised(imgUrlArr);
