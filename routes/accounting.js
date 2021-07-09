@@ -392,7 +392,7 @@ router.post("/ledger",function(req, res) {
     }
 
     let netobj = {
-       本期損益 : [
+       本期損益摘要 : [
          {
           acctname: "本期損益",
           drttl: ndrttl,
