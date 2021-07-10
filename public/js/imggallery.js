@@ -239,6 +239,13 @@ $(function() {
      imgFav586,imgFav587,imgFav588,imgFav589,imgFav590,
      imgFav591,imgFav592,imgFav593,imgFav594,imgFav595,
      imgFav596,imgFav597,imgFav598,imgFav599,imgFav600
+  ];
+
+  let imgUrlArr30 = [
+     imgFav601,imgFav602,imgFav603,imgFav604,imgFav605,
+     imgFav606,imgFav607,imgFav608,imgFav609,imgFav610,
+     imgFav611,imgFav612,imgFav613,imgFav614,imgFav615,
+     imgFav616,imgFav617,imgFav618,imgFav619,imgFav620
   ]; 
 
  let imgUrlAll = [];
@@ -248,10 +255,11 @@ $(function() {
                 imgUrlArr10,imgUrlArr11,imgUrlArr12,imgUrlArr13,imgUrlArr14,
                 imgUrlArr15,imgUrlArr16,imgUrlArr17,imgUrlArr18,imgUrlArr19,
                 imgUrlArr20,imgUrlArr21,imgUrlArr22,imgUrlArr23,imgUrlArr24,
-                imgUrlArr25,imgUrlArr26,imgUrlArr27,imgUrlArr28,imgUrlArr29
+                imgUrlArr25,imgUrlArr26,imgUrlArr27,imgUrlArr28,imgUrlArr29,
+                imgUrlArr30
               );
      
- let max0 = 30;
+ let max0 = 31;
  let m = Math.floor(Math.random()*max0);
  console.log("random num", m)
  let imgUrlArr = imgUrlAll[m];
