@@ -13,8 +13,6 @@ $(function() {
  let displaydiv = $("#displaydiv");
 
  $('#displaydiv').on("dblclick",".img",function(e) {
-
-    console.log($(this).attr("src"));
     e.stopPropagation();
     let imgheight = $(this).css("height");
     if (imgheight === "200px") {
@@ -222,6 +220,27 @@ $(function() {
      imgFav536,imgFav537,imgFav538,imgFav539,imgFav540
   ];
 
+  let imgUrlArr27 = [
+     imgFav541,imgFav542,imgFav543,imgFav544,imgFav545,
+     imgFav546,imgFav547,imgFav548,imgFav549,imgFav550,
+     imgFav551,imgFav552,imgFav553,imgFav554,imgFav555,
+     imgFav556,imgFav557,imgFav558,imgFav559,imgFav560
+  ];
+
+  let imgUrlArr28 = [
+     imgFav561,imgFav562,imgFav563,imgFav564,imgFav565,
+     imgFav566,imgFav567,imgFav568,imgFav569,imgFav570,
+     imgFav571,imgFav572,imgFav573,imgFav574,imgFav575,
+     imgFav576,imgFav577,imgFav578,imgFav579,imgFav580
+  ];
+
+  let imgUrlArr29 = [
+     imgFav581,imgFav582,imgFav583,imgFav584,imgFav585,
+     imgFav586,imgFav587,imgFav588,imgFav589,imgFav590,
+     imgFav591,imgFav592,imgFav593,imgFav594,imgFav595,
+     imgFav596,imgFav597,imgFav598,imgFav599,imgFav600
+  ]; 
+
  let imgUrlAll = [];
 
  imgUrlAll.push(imgUrlArr0,imgUrlArr1,imgUrlArr2,imgUrlArr3,imgUrlArr4,
@@ -229,13 +248,13 @@ $(function() {
                 imgUrlArr10,imgUrlArr11,imgUrlArr12,imgUrlArr13,imgUrlArr14,
                 imgUrlArr15,imgUrlArr16,imgUrlArr17,imgUrlArr18,imgUrlArr19,
                 imgUrlArr20,imgUrlArr21,imgUrlArr22,imgUrlArr23,imgUrlArr24,
-                imgUrlArr25,imgUrlArr26
+                imgUrlArr25,imgUrlArr26,imgUrlArr27,imgUrlArr28,imgUrlArr29
               );
      
- let max0 = 27;
+ let max0 = 30;
  let m = Math.floor(Math.random()*max0);
- let imgUrlArr = imgUrlAll[26];
-    
+ console.log("random num", m)
+ let imgUrlArr = imgUrlAll[m];
  displayImgbySeq(imgUrlArr);
  //displayimgPromised(imgUrlArr);
 ;
