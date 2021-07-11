@@ -1,4 +1,3 @@
-//load imgFav01-200 from urlfile.js
 $(function() {
 
  $("<a>").attr({id:"return",title:"返回首頁"})
