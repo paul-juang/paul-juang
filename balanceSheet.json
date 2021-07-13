@@ -1,1 +1,1 @@
-[{"流動資產":[{"acctname":"銀行存款","drttl":2000999,"crttl":0},{"acctname":"應收帳款","drttl":0,"crttl":1000000}]},{},{"流動負債":[{"acctname":"銀行借款","drttl":0,"crttl":1000999}]},{},{},{}]
+[{"流動資產":[{"acctname":"銀行存款","drttl":9030000,"crttl":0},{"acctname":"應收帳款","drttl":120000,"crttl":0}]},{"固定資產":[{"acctname":"房屋及建物","drttl":1000000,"crttl":0}]},{},{},{"資本":[{"acctname":"資本","drttl":0,"crttl":10000000}]},{"保留盈餘(或累積虧損)":[{"acctname":"本期損益","drttl":0,"crttl":150000}]}]

@@ -45,6 +45,14 @@ router.get("/suloto539",function(req, res) {
  res.render("suloto539");
 });
 
+router.get("/statloto649",function(req, res) {
+ res.render("statloto649");
+});
+
+router.get("/statloto539",function(req, res) {
+ res.render("statloto539");
+});
+
 router.get("/preloto649",function(req, res) {
  res.render("preloto649");
 });

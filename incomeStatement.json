@@ -1,1 +1,1 @@
-[{},{},{},{"本期損益":[{"acctname":"本期損益","drttl":0,"crttl":0},{"acctname":"總計","drttl":0,"crttl":0}]}]
+[{"營業收入":[{"acctname":"銷貨收入","drttl":0,"crttl":400000}]},{"銷貨成本":[{"acctname":"進貨","drttl":50000,"crttl":0}]},{"營業費用":[{"acctname":"保險費","drttl":50000,"crttl":0},{"acctname":"薪資支出","drttl":150000,"crttl":0}]},{"本期損益摘要":[{"acctname":"本期損益","drttl":150000,"crttl":0},{"acctname":"總計","drttl":400000,"crttl":400000}]}]
