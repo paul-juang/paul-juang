@@ -13,7 +13,7 @@ let hero5 = "https://github.com/RyanHemrick/star_wars_app/blob/master/public/ima
 let hero6 = "https://github.com/RyanHemrick/star_wars_app/blob/master/public/images/star_wars_episode_6_hero.jpg?raw=true"
 
 $(function() { 
- let gdata,imgUrl,nasaDescription,movies,movieNum; 
+ let gdata,nasaDescription,movies,movieNum; 
  let episoArr = [img1,img2,img3,img4,img5,img6];
  let heroArr = [hero1,hero2,hero3,hero4,hero5,hero6]
 
@@ -37,6 +37,7 @@ $(function() {
 
    $("body").empty();
 
+//home page death-star image
    let starImage = "https://github.com/RyanHemrick/star_wars_app/blob/master/public/images/death_star_image.jpg?raw=true"
    
    $('<div>').attr({id:"hero-image"}).css({width:"100%",height:400})
@@ -48,7 +49,7 @@ $(function() {
       
    $.getJSON('movies.json',function(res) {
        movies = res.movies;
- 
+ //menu 
        $('<nav>').attr({class:"navbar navbar-fixed-top"})
         .html(`
             <div class='content-padding'>
@@ -76,7 +77,7 @@ $(function() {
             </div> 
             `)       
        .appendTo('body');
-
+//poster
       $('<div>').attr({id:'posters-wrapper',class:'content-padding clearfix'})
        .html(`
           ${movies.map(function(movie, i) {
@@ -95,7 +96,8 @@ $(function() {
       `)      
      .appendTo('body')
 
-     $("#homeRef").on("click",function(event) {
+//click events 
+    $("#homeRef").on("click",function(event) {
        event.preventDefault();
        renderHomePage();
      })
@@ -110,7 +112,7 @@ $(function() {
         event.preventDefault();
         movieNum = $(".posterHref").index(this);
         renderSinglePage();
-     })
+     })     
 
    }); 
 
@@ -149,12 +151,14 @@ $(function() {
          </div>
       `)
      .appendTo("body");
-
+     
+//single page hero image/title
    let heroImage = heroArr[movieNum];
    $("div #hero-image").attr({src: heroImage }); 
 
    let heroImageSingleHeight = $("#descriptionWrapper").height();
    $("#hero-image-single").css({height: heroImageSingleHeight});
+   $("#hero-title").text(movies[movieNum].title); 
  } 
 
 }); 
