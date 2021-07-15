@@ -13,31 +13,31 @@ let hero5 = "https://github.com/RyanHemrick/star_wars_app/blob/master/public/ima
 let hero6 = "https://github.com/RyanHemrick/star_wars_app/blob/master/public/images/star_wars_episode_6_hero.jpg?raw=true"
 
 $(function() { 
- let gdata,nasaDescription,movies,movieNum; 
- let episoArr = [img1,img2,img3,img4,img5,img6];
- let heroArr = [hero1,hero2,hero3,hero4,hero5,hero6]
 
  fetch("/getHttps")
  .then(res => res.json()    
   )
  .then(data => {
-    if (data.imgUrl) {
-      let imgNasa = data.imgUrl;
-      console.log("Nasa:", imgNasa)
-    } else{
-      console.log("Nasa: nothing")
-    }
-    renderHomePage()
+      if (data.imgUrl) {
+        let imgNasa = data.imgUrl;
+        console.log("Nasa:", imgNasa);
+      } else{
+        console.log("Nasa: nothing");
+      }
     })
  .catch(err => { 
-     console.log("error: " + err.message)  
+     console.log("Nasa error: " + err.message);  
    })
+
+ let episoArr = [img1,img2,img3,img4,img5,img6];
+ let heroArr = [hero1,hero2,hero3,hero4,hero5,hero6];
+
+ renderHomePage()
 
  function renderHomePage() {
 
    $("body").empty();
 
-//home page death-star image
    let starImage = "https://github.com/RyanHemrick/star_wars_app/blob/master/public/images/death_star_image.jpg?raw=true"
    
    $('<div>').attr({id:"hero-image"}).css({width:"100%",height:400})
@@ -48,8 +48,9 @@ $(function() {
    .appendTo('body');
       
    $.getJSON('movies.json',function(res) {
-       movies = res.movies;
- //menu 
+       
+       let movies = res.movies;
+
        $('<nav>').attr({class:"navbar navbar-fixed-top"})
         .html(`
             <div class='content-padding'>
@@ -59,7 +60,9 @@ $(function() {
                 </li>
 
                 <li class='dropdown'>
-                  <a href='#' class='dropdown-toggle' data-toggle='dropdown'>movies</a>
+                  <a href='#' class='dropdown-toggle' data-toggle='dropdown'>movies
+                     <i class='fa fa-chevron-down'></i>
+                  </a>
                   <ul class=dropdown-menu>
 
                     ${movies.map(function(movie) {
@@ -77,7 +80,7 @@ $(function() {
             </div> 
             `)       
        .appendTo('body');
-//poster
+
       $('<div>').attr({id:'posters-wrapper',class:'content-padding clearfix'})
        .html(`
           ${movies.map(function(movie, i) {
@@ -95,8 +98,7 @@ $(function() {
           }).join('')}                     
       `)      
      .appendTo('body')
-
-//click events 
+ 
     $("#homeRef").on("click",function(event) {
        event.preventDefault();
        renderHomePage();
@@ -104,21 +106,21 @@ $(function() {
 
      $(".episode_link").on("click",function(event) {
         event.preventDefault();
-        movieNum = $(".episode_link").index(this);
-        renderSinglePage();
+        let movieNum = $(".episode_link").index(this);
+        renderSinglePage(movies,movieNum);
      })
 
      $(".posterHref").on("click",function(event) {
         event.preventDefault();
-        movieNum = $(".posterHref").index(this);
-        renderSinglePage();
+        let movieNum = $(".posterHref").index(this);
+        renderSinglePage(movies,movieNum);
      })     
 
    }); 
 
  }
 
- function renderSinglePage() {
+ function renderSinglePage(movies,movieNum) {
 
     if ($("#posters-wrapper")) {
       $("#posters-wrapper").remove(); 
@@ -152,7 +154,6 @@ $(function() {
       `)
      .appendTo("body");
      
-//single page hero image/title
    let heroImage = heroArr[movieNum];
    $("div #hero-image").attr({src: heroImage }); 
 
