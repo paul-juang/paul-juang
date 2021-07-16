@@ -8,17 +8,20 @@ $(function() {
   $(this).attr("href","/")
  })
 
- $("<div>").attr("id","displaydiv").appendTo("body");
+ $("<div>").attr("id","displaydiv").css("margin","0px 80px").appendTo("body");
+
  let displaydiv = $("#displaydiv");
 
  $('#displaydiv').on("dblclick",".img",function(e) {
     e.stopPropagation();
     let imgheight = $(this).css("height");
     if (imgheight === "200px") {
-      $(this).css({width: window.innerWidth, height: window.innerHeight});
+      $(this).css({width: "100%", height: window.innerHeight});
+      $('#displaydiv').css("margin","0px 0px")
     }
     else {
       $(this).css({width:200,height:200,marginLeft:10,marginTop:10});
+      $('#displaydiv').css("margin","0px 80px")
     }
   })
 
