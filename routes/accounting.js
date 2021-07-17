@@ -130,9 +130,9 @@ router.post("/ledger",function(req, res) {
        }
      }
      let json = JSON.stringify(acctObj);
-     fs.writeFile('Ledger.json', json, 'utf8', function(err) { 
+     fs.writeFile('ledger.json', json, 'utf8', function(err) { 
         if (err) {
-          console.log("write Ledger.json error!")
+          console.log("write ledger.json error!")
           return callback(err)
         }
      }) 
