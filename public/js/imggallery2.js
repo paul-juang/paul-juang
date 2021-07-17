@@ -9,21 +9,18 @@ $(function() {
   $(this).attr("href","/")
  })
 
- $("<div>").attr({id:"displaydiv", class:"img-container"})
-  .css({'max-width':'max-width: 1400px',margin:'20px 80px',display:'flex',
-         'align-items':'center','justify-content':'space-around','flex-wrap': 'wrap'}
-   )
-  .appendTo("body");
+ $("<div>").attr("id","displaydiv").css("margin","0 80px").appendTo("body");
+
  $('#displaydiv').on("dblclick",".img",function(e) {
     e.stopPropagation();
     let imgheight = $(this).css("height");
-    if (imgheight === "254px") {
+    if (imgheight === "200px") {
       $(this).css({width: "100%", height: window.innerHeight});
-      $('#displaydiv').css("margin","20px 0")
+      $('#displaydiv').css("margin","0 0")
     }
     else {
-      $(this).css({width:254,height:254,marginTop:10});
-      $('#displaydiv').css("margin","20px 80px")
+      $(this).css({width:200,height:200,marginLeft:10,marginTop:10});
+      $('#displaydiv').css("margin","0 80px")
     }
   })
 
@@ -274,13 +271,73 @@ $(function() {
  let m = Math.floor(Math.random()*max0);
  console.log("random num", m)
  let imgUrlArr = imgUrlAll[m];
- $("#displaydiv").html(`
-                 ${imgUrlArr.map(url => {
-                     return `
-                        <img src=${url} class='img' style='width:254px;height:254px;margin-top:20px;'>
-                     `
-                 }).join('')}
-
-    `)
+ displayImgbySeq(imgUrlArr);
 
 }) 
+
+//display an array of images by sequence
+function displayImgbySeq(urlarr) {
+
+  urlarr.forEach(async (img) => {
+    try {
+      let url = await getimg(img);
+      document.querySelector('#displaydiv').innerHTML += `
+         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+      `  
+    } catch(err) {
+      console.log('error:' + err.message)
+    }    
+  })
+
+}
+  
+//display an array of images by promisearr
+function displayimgPromised(urlarr) {
+
+  let promisearr = urlarr.map(getimg);
+  let sequence = Promise.resolve();
+  promisearr.forEach(async (curpromise) => {
+     try {
+      let url = await sequence.then(() => curpromise);
+      document.querySelector('#displaydiv').innerHTML += `
+         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+      `  
+     } catch(err) {
+      console.log('error:' + err.message)
+     }    
+  })
+
+}
+
+ //display an array of images by recursion     
+ async function displayImgbyRecursion(urlarr) {
+
+  let targeturl = urlarr.shift();
+  if (targeturl) {
+     try {
+      let url = await getimg(targeturl);
+      document.querySelector('#displaydiv').innerHTML += `
+         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+      `    
+      displayImgbyRecursion(urlarr) 
+     } catch(err) {
+      console.log('error:' + err.message)
+     }        
+   }
+
+ }
+
+ function getimg(url) {
+  
+  return new Promise(function(resolve,reject) {
+    var img = new Image();
+    img.onload = function() {
+      resolve(url)
+    }
+    img.onerror = function() {
+      reject(url)
+    }
+    img.src = url;
+  })
+
+}
