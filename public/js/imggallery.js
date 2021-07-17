@@ -1,6 +1,7 @@
 $(function() {
 
  $("<a>").attr({id:"return",title:"返回首頁"})
+ .css({color: "rgb(0,0,255)"})
  .text("\u21B6").appendTo('body');
  $("<br>").appendTo('body');
 
@@ -8,20 +9,18 @@ $(function() {
   $(this).attr("href","/")
  })
 
- $("<div>").attr("id","displaydiv").css("margin","0px 80px").appendTo("body");
-
- let displaydiv = $("#displaydiv");
+ $("<div>").attr("id","displaydiv").css("margin","0 80px").appendTo("body");
 
  $('#displaydiv').on("dblclick",".img",function(e) {
     e.stopPropagation();
     let imgheight = $(this).css("height");
     if (imgheight === "200px") {
       $(this).css({width: "100%", height: window.innerHeight});
-      $('#displaydiv').css("margin","0px 0px")
+      $('#displaydiv').css("margin","0 0")
     }
     else {
       $(this).css({width:200,height:200,marginLeft:10,marginTop:10});
-      $('#displaydiv').css("margin","0px 80px")
+      $('#displaydiv').css("margin","0 80px")
     }
   })
 
@@ -266,13 +265,62 @@ $(function() {
  console.log("random num", m)
  let imgUrlArr = imgUrlAll[m];
  displayImgbySeq(imgUrlArr);
- //displayimgPromised(imgUrlArr);
-;
 
-}) //end of $(function())
+}) 
 
-//functions
-function getimg(url) {
+//display an array of images by sequence
+function displayImgbySeq(urlarr) {
+
+  urlarr.forEach(async (img) => {
+    try {
+      let url = await getimg(img);
+      document.querySelector('#displaydiv').innerHTML += `
+         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+      `  
+    } catch(err) {
+      console.log('error:' + err.message)
+    }    
+  })
+
+}
+  
+//display an array of images by promisearr
+function displayimgPromised(urlarr) {
+
+  let promisearr = urlarr.map(getimg);
+  let sequence = Promise.resolve();
+  promisearr.forEach(async (curpromise) => {
+     try {
+      let url = await sequence.then(() => curpromise);
+      document.querySelector('#displaydiv').innerHTML += `
+         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+      `  
+     } catch(err) {
+      console.log('error:' + err.message)
+     }    
+  })
+
+}
+
+ //display an array of images by recursion     
+ async function displayImgbyRecursion(urlarr) {
+
+  let targeturl = urlarr.shift();
+  if (targeturl) {
+     try {
+      let url = await getimg(targeturl);
+      document.querySelector('#displaydiv').innerHTML += `
+         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+      `    
+      displayImgbyRecursion(urlarr) 
+     } catch(err) {
+      console.log('error:' + err.message)
+     }        
+   }
+
+ }
+
+ function getimg(url) {
   
   return new Promise(function(resolve,reject) {
     var img = new Image();
@@ -284,78 +332,5 @@ function getimg(url) {
     }
     img.src = url;
   })
-}
-
-//display an array of images by sequence
-function displayImgbySeq(urlarr) {
-
-  urlarr.forEach(async (img) => {
-    try {
-      let url = await getimg(img);
-      $("<img>").attr({src: url, class:"img"})
-       .css({width:200,height:200,marginLeft:10,marginTop:10})
-       .appendTo(displaydiv); 
-    } catch(err) {
-      console.log('error:' + err.message)
-    }    
-  })
 
 }
-  
-function displayimgPromised(urlarr) {
-
-  let promisearr = urlarr.map(getimg);
-  let sequence = Promise.resolve();
-  promisearr.forEach(function(curpromise) {
-    sequence.then(function() {
-      return curpromise;
-    })
-    .then(function(url) {
-      $("<img>").attr({src: url, class:"img"})
-      .css({width:200,height:200,marginLeft:10,marginTop:10})
-      .appendTo(displaydiv);
-    })
-    .catch(function(err) {
-      console.log("loading image error!")
-    })
-
-   })
- }
- 
- //display an array of images by recursion     
- async function displayImgbyRec(urlarr) {
-
-  let targeturl = urlarr.shift();
-  if (targeturl) {
-     try {
-      let url = await getimg(targeturl);
-      $("<img>").attr({src: url, class:"img"})
-       .css({width:200,height:200,marginLeft:10,marginTop:10})
-       .appendTo(displaydiv);
-       
-       displayimg(urlarr); 
-     } catch(err) {
-      console.log('error:' + err.message)
-     }        
-   }
-}
-
- function displayimg(urlarr) {
-
-  let targeturl = urlarr.shift();
-  if (targeturl) {
-    getimg(targeturl)
-    .then(function(url) {
-            $("<img>").attr({src: url, class:"img"})
-            .css({width:200,height:200,marginLeft:10,marginTop:10})
-            .appendTo(displaydiv);
-
-            displayimg(urlarr);
-          })
-    .catch(function(urlarr) {
-      console.log("loading image error!")
-    })
-  }
-}
-
-
