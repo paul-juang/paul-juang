@@ -8,22 +8,22 @@ $(function() {
  $("#return").on("click",function() {
   $(this).attr("href","/")
  })
-
+ 
  $("<div>").attr({id:"displaydiv", class:"img-container"})
-  .css({'max-width':'max-width: 1200px',margin:'20px 80px',display:'flex',
-         'align-items':'center','justify-content':'space-around','flex-wrap': 'wrap'}
+  .css({'max-width':'1200px',margin:'20px 86px',display:'flex','flex-wrap':'wrap'}
    )
   .appendTo("body");
+  
  $('#displaydiv').on("dblclick",".img",function(e) {
     e.stopPropagation();
     let imgheight = $(this).css("height");
-    if (imgheight === "210px") {
+    if (imgheight === "200px") {
       $(this).css({width: "100%", height: window.innerHeight});
       $('#displaydiv').css("margin","20px 0")
     }
     else {
-      $(this).css({width:210,height:210,marginTop:10});
-      $('#displaydiv').css("margin","20px 80px")
+      $(this).css({width:200,height:200,marginTop:10,marginLeft:10});
+      $('#displaydiv').css("margin","20px 86px")
     }
   })
 
@@ -277,7 +277,7 @@ $(function() {
  $("#displaydiv").html(`
                  ${imgUrlArr.map(url => {
                      return `
-                        <img src=${url} class='img' style='width:210px;height:210px;margin-top:10px;'>
+                        <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
                      `
                  }).join('')}
 
