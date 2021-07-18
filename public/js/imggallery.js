@@ -10,19 +10,19 @@ $(function() {
  })
 
  $("<div>").attr({id:"displaydiv", class:"img-container"})
-  .css({'max-width':'max-width: 1400px',margin:'20px 80px',display:'flex',
+  .css({'max-width':'max-width: 1200px',margin:'20px 80px',display:'flex',
          'align-items':'center','justify-content':'space-around','flex-wrap': 'wrap'}
    )
   .appendTo("body");
  $('#displaydiv').on("dblclick",".img",function(e) {
     e.stopPropagation();
     let imgheight = $(this).css("height");
-    if (imgheight === "254px") {
+    if (imgheight === "210px") {
       $(this).css({width: "100%", height: window.innerHeight});
       $('#displaydiv').css("margin","20px 0")
     }
     else {
-      $(this).css({width:254,height:254,marginTop:10});
+      $(this).css({width:210,height:210,marginTop:10});
       $('#displaydiv').css("margin","20px 80px")
     }
   })
@@ -277,7 +277,7 @@ $(function() {
  $("#displaydiv").html(`
                  ${imgUrlArr.map(url => {
                      return `
-                        <img src=${url} class='img' style='width:254px;height:254px;margin-top:20px;'>
+                        <img src=${url} class='img' style='width:210px;height:210px;margin-top:10px;'>
                      `
                  }).join('')}
 
