@@ -277,7 +277,7 @@ $(function() {
  $("#displaydiv").html(`
                  ${imgUrlArr.map(url => {
                      return `
-                        <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;'>
+                        <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;border:2px solid #4133FF;'>
                      `
                  }).join('')}
 
