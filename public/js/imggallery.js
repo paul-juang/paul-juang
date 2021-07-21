@@ -10,7 +10,7 @@ $(function() {
  })
  
  $("<div>").attr({id:"displaydiv", class:"img-container"})
-  .css({'max-width':'1200px',margin:'20px 86px',display:'flex','flex-wrap':'wrap'}
+  .css({'max-width':'1400px',margin:'20px 86px',display:'flex','flex-wrap':'wrap'}
    )
   .appendTo("body");
   
@@ -18,7 +18,7 @@ $(function() {
     e.stopPropagation();
     let imgheight = $(this).css("height");
     if (imgheight === "200px") {
-      $(this).css({width: "100%", height: window.innerHeight});
+      $(this).css({width: "100vw", height:"100vh"});
       $('#displaydiv').css("margin","20px 0")
     }
     else {
@@ -276,7 +276,7 @@ $(function() {
  let imgUrlArr = imgUrlAll[m];
  $("#displaydiv").html(`
                  ${imgUrlArr.map(url => {
-                     return `
+                     return `                 
                         <img src=${url} class='img' style='width:200px;height:200px;margin-top:10px;margin-left:10px;border:2px solid #4133FF;'>
                      `
                  }).join('')}
