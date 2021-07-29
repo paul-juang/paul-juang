@@ -64,6 +64,22 @@ General Styles
     color: var(--color-primary);
   }
 
+
+  #check {
+    display: none;
+  }
+
+  .checkbtn #bars {
+    top: 10px;
+    right: 20px;
+    position: absolute;
+    font-size: 1rem;
+    color: var(--color-white);
+    cursor: pointer;
+    display: none;
+  }
+
+
 @media screen and (max-width: 940px) {
   .nav-bar ul {
     display: flex;
@@ -71,12 +87,26 @@ General Styles
   }
 
   .nav-bar ul li {
-    width:36vw;
+    width:38vw;
   } 
 
   .dropdown a {
     background: rgba(68, 68, 69, 0.6);
    }
 
+  .nav-bar ul li {
+    position: relative;
+    left: -9999px;
+    transition: .25s ease-in-out;
+   } 
+
+  .checkbtn #bars {
+    display: block;
+  }
+ 
+  #check:checked ~ ul li {
+    left: 0;
+  }
+  
 }       
   
