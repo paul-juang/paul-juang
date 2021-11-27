@@ -343,6 +343,8 @@ $(function() {
         return false;
       }
       
+
+      //validation ok post  data to server
       let res = await fetch("/ledger", {
         method: 'POST', 
         headers: {
