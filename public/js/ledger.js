@@ -32,9 +32,13 @@ $(function() {
   let jsonarr = ["acctchart.json", "acctclass.json"];
   
   async.map(jsonarr,function(json,callback) {
-    $.getJSON(json,function(result) {
+    /*$.getJSON(json, function(result) {
       callback(null,result);
-    })        
+    })*/
+    fetch(json)
+    .then(res => res.json())
+    .then(data => callback(null,data))
+    .catch(err => callback(err))       
   },
   function(err,result) {
     if (err) {

@@ -1,11 +1,15 @@
 
 //Print ledger accounts,Trialbalance and IncomeStatement
 $(function() {
-  let jsonarr = ["ledger.json","trialBalance.json","incomeStatement.json", "balanceSheet.json",  "acctclass.json","acctdate.json"];
+  let jsonarr = ["Ledger.json","trialBalance.json","incomeStatement.json", "balanceSheet.json",  "acctclass.json","acctdate.json"];
   async.map(jsonarr,function(json,callback) {
-    $.getJSON(json,function(result) {
-      callback(null,result)
-    })        
+    /*$.getJSON(json, function(result) {
+      callback(null,result);
+    })*/
+    fetch(json)
+    .then(res => res.json())
+    .then(data => callback(null,data))
+    .catch(err => callback(err))      
   },
   function(err,result) {
     if (err) {
