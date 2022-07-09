@@ -1,5 +1,7 @@
 const https = require('https');
 
+const Stream = require("stream").Transform
+
 const fs = require('fs');
 
 const async = require("async");
@@ -11,6 +13,8 @@ const path = require('path');
 const app = express();
 
 const session = require('express-session');
+
+const bcrypt = require("bcryptjs") //bcrypt
 
 const cookieParser = require('cookie-parser');
 
@@ -40,7 +44,7 @@ app.use(express.static(__dirname));
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 
 app.use(express.json());
 
