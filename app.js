@@ -55,12 +55,12 @@ const store = new MongodbSession({
   collection: "sessions"
 })
 
-app.use(session({
+/*app.use(session({
   secret: "hashsecret",
   resave: false,
   saveUninitialized: false,
   store: store
-}));
+}));*/
 
 //use router
 //app.use(require('./routes/session'));

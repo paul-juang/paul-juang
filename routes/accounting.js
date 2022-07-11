@@ -10,6 +10,7 @@ const Account = require('../models/account');//updated 07/08/2022
 
 
 //home page
+//router.get("/home",function(req, res) {
 router.get("/",function(req, res) {
  res.render("homec");
 });
