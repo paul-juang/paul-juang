@@ -81,7 +81,7 @@ General Styles
     display: none;
   }
 
-@media screen and (max-width: 1112px) {
+@media screen and (max-width: 1234px) {
   .nav-bar ul {
     display: flex;
     flex-direction: column;
