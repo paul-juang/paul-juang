@@ -31,7 +31,8 @@ General Styles
   }
 
   .nav-bar ul li {
-    width: 10vw;
+    width: 12vw;
+    font-size: 1.2rem;
   }
 
   .nav-bar ul li a {
