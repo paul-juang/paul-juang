@@ -121,7 +121,7 @@ $(function() {
     let date = dateperiod;
     $("<h5>").text("日期: " + date).css({textAlign: "center"})
     .appendTo('body');
-    $("<h4>").text("試算表").css({textAlign: "center"})
+    $("<h4>").text("試算表xxxx").css({textAlign: "center"})
     .appendTo('body');   
     $("<br>").appendTo('body');
     $("<table>").css({width:"100% !important",margin:"auto"})
