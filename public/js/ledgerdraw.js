@@ -1,5 +1,5 @@
 //last update 07/14/2020
-
+/*
 document.addEventListener("DOMContentLoaded", () => {
   afetch("/getacct")
 })
@@ -166,10 +166,10 @@ function printLedgerAcct(acctObj,dateperiod) {
      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }  
 
-
+*/
 
 //old version
-/*
+
 $(function() {
   let jsonarr = ["Ledger.json","trialBalance.json","incomeStatement.json", "balanceSheet.json",  "acctclass.json","acctdate.json"];
   async.map(jsonarr,function(json,callback) {  
@@ -217,7 +217,7 @@ $(function() {
     let date = dateperiod;
     $("<h5>").text("日期: " + date).css({textAlign: "center"})
     .appendTo('body');
-    $("<h4>").text("總帳目表").css({textAlign: "center"})
+    $("<h4>").text("總帳目表xxxx").css({textAlign: "center"})
     .appendTo('body');  
     
     for (let i in acctObj) {
@@ -275,4 +275,4 @@ $(function() {
   
 })
 
-*/
+
