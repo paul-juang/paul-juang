@@ -8,7 +8,6 @@ const router = express.Router();
 
 const Account = require('../models/account');//updated 07/08/2022
 
-
 //home page
 //router.get("/home",function(req, res) {
 router.get("/",function(req, res) {
@@ -564,6 +563,14 @@ router.get("/adjustledger",function(req, res) {
 router.get("/ledgerdraw",function(req, res) {
   res.render("ledgerdraw");
   });
+
+//get ledger accounts 07/14/22
+router.get("/getacct",function(req, res) {
+      Account.find({}, function(err,data0) {
+       if (err) res.send({error: err.message})
+       res.send({data: data0})
+    })
+});
 
 router.get("/trialbalance",function(req, res) {
     res.render("trialbalance");

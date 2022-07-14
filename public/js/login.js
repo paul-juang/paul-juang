@@ -40,7 +40,10 @@ content-type,
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+    console.log("get here")
+    document.querySelector("#email").value = "";
+    document.querySelector("#password").value = "";
+
     document.querySelector("#form").onsubmit = () => {
         console.log('get here')
     	const email = document.querySelector("#email").value

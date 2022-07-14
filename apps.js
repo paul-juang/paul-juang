@@ -1,19 +1,18 @@
 //authentication - express-session
+
+require('dotenv').config();
+
 const express = require('express');
-
-const session = require('express-session');
-
-const cookieParser = require('cookie-parser');
-
-const bcrypt = require("bcryptjs") //bcrypt
-
-const MongodbSession = require('connect-mongodb-session')(session);
-
-const path = require('path');
 
 const app = express();
 
-require('dotenv').config()
+const path = require('path');
+
+const session = require('express-session');
+
+const MongodbSession = require('connect-mongodb-session')(session);
+
+const bcrypt = require("bcryptjs"); //bcrypt
 
 const mongoose = require('mongoose');
 
@@ -26,12 +25,13 @@ mongoose.connect(process.env.MONGODB_URI,{
 .catch((err)=> console.log(err))   
 
 //for get /nasa
-const https = require("https")
+const https = require("https");
 
-const Stream = require("stream").Transform
+const Stream = require("stream").Transform;
 
 const fs = require("fs")
-//
+
+const cookieParser = require('cookie-parser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -40,13 +40,12 @@ app.set("view engine", "ejs");
 
 app.set("views", path.join(__dirname, "views"));
 
-
 //middleware
 app.use(express.static(__dirname));
 
 app.use(express.static(path.join(__dirname,"public")));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 
 app.use(express.json());
 
@@ -64,31 +63,29 @@ app.use(session({
 	store: store
 }));
 
-/**/
-
 const User = require("./models/user");
 
-
-const authUser = async(req,res,next) => {
+const authUser = async(req, res, next) => {
     console.log("req.cookie:", req.cookies);
-    console.log("req.sessionID:",req.sessionID);
-    console.log("req.session:",req.session);
+    console.log("req.sessionID:", req.sessionID);
+    console.log("req.session:", req.session);
 
     if (req.session.isAuth) {
       let user = await User.findOne({_id: req.session.userId})
         return res.send(`${user.name} already logged in`)
       }  
      next()
-   }
+ }
+
 
 app.get("/", authUser, async (req, res) => {
     res.render("login")
 });
 
 
-app.post("/login",async(req, res) => {
+app.post("/login", async(req, res) => {
   
-    const {email,password } = req.body;
+    const { email,password } = req.body;
 
     if (!email ||!password) { 
       return res.redirect("/")
@@ -101,15 +98,13 @@ app.post("/login",async(req, res) => {
 
       const ismatch = await bcrypt.compare(password, user.password);
       if (ismatch) {
-        
         //req.session.cookie.maxAge = 1000*60*60
         req.session.userId = user._id
         req.session.email = user.email
         req.session.date = new Date().toISOString().split('T')[0]
         req.session.isAuth = true
         res.cookie('user.id', user._id, { maxAge: 90000, httpOnly: false});
-
-        res.json({login:"success"}) 
+        res.send({login: "success!!!"}) 
       } else {
         res.redirect("/")
       }
