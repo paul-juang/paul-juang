@@ -1,5 +1,5 @@
 //last update 07/14/2020
-/*
+
 document.addEventListener("DOMContentLoaded", () => {
   getledger("/getacct")
 })
@@ -166,8 +166,8 @@ function printLedgerAcct(acctObj,dateperiod) {
      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }  
 
-*/
-//*
+
+/*
 //old version
 
 $(function() {
@@ -274,5 +274,5 @@ $(function() {
   }  
   
 })
-//*/
+*/
 
