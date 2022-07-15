@@ -1,18 +1,18 @@
 //last update 07/14/2020
-
+/*
 document.addEventListener("DOMContentLoaded", () => {
-  afetch("/getacct")
+  getledger("/getacct")
 })
 
 
 //functions
-async function afetch(url) {
+async function getledger(url) {
   const json = await fetch(url);
   const obj = await json.json()
   const arrofaccts = obj.data
+  let dateperiod = getDate(arrofaccts);
   sortarr(arrofaccts)
   let acctObj = reducearr(arrofaccts)
-  let dateperiod = getDate(arrofaccts);
   console.log("acctObj", acctObj)
   console.log("dateperiod", dateperiod)
   printLedgerAcct(acctObj, dateperiod);
@@ -36,17 +36,16 @@ function reducearr(arr) {
     dr:obj.dr,
     cr:obj.cr,
     date:obj.date
-  }
+   }
   )
    return acctobj; 
   }, {});
-  for (let i in acctObj) {
 
+  for (let i in acctObj) {
    let drttl = 0;
    let crttl = 0;
 
    acctObj[i].forEach(function(obj) {
-
      if (obj.dr) {
        drttl = drttl + obj.dr;
      }
@@ -83,6 +82,7 @@ function reducearr(arr) {
      )
    }
   } 
+  
   return acctObj;
 }
 
@@ -166,8 +166,8 @@ function printLedgerAcct(acctObj,dateperiod) {
      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }  
 
-
-/*
+*/
+//*
 //old version
 
 $(function() {
@@ -217,7 +217,7 @@ $(function() {
     let date = dateperiod;
     $("<h5>").text("日期: " + date).css({textAlign: "center"})
     .appendTo('body');
-    $("<h4>").text("總帳目表xxxx").css({textAlign: "center"})
+    $("<h4>").text("總帳目表").css({textAlign: "center"})
     .appendTo('body');  
     
     for (let i in acctObj) {
@@ -274,5 +274,5 @@ $(function() {
   }  
   
 })
-*/
+//*/
 
