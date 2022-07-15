@@ -1,4 +1,3 @@
-
 //Print ledger accounts,Trialbalance and IncomeStatement
 $(function() {
   let jsonarr = ["Ledger.json","trialBalance.json","incomeStatement.json", "balanceSheet.json",  "acctclass.json","acctdate.json"];
@@ -22,18 +21,10 @@ $(function() {
     let acctclass = result[4];
     let objarr = result[5];
     let dateperiod = getDate(objarr);
-    console.log("dateperiod: ",dateperiod)
-    console.log("ledger: ", acctObj)
-    console.log("trialBalance: ", trialBalance);
-    console.log("incomeStatement: ", incomeStatement);
-    console.log("balanceSheet: ", balanceSheet);
-    console.log("acctclass: ", acctclass);
-    console.log("objarr: ", objarr);
-   //printLedgerAcct(acctObj,dateperiod);
-   printTrialBalance(trialBalance,dateperiod)
-   // printIncomeStatement(incomeStatement,dateperiod);
-   //printBalanceSheet(balanceSheet,dateperiod);
+    printTrialBalance(trialBalance,dateperiod)
   })
+
+  
   function getDate(objarr) {
     let begdate = objarr[0].date;
     let yyyyb = begdate.substr(0,4);
@@ -121,7 +112,7 @@ $(function() {
     let date = dateperiod;
     $("<h5>").text("日期: " + date).css({textAlign: "center"})
     .appendTo('body');
-    $("<h4>").text("試算表xxxx").css({textAlign: "center"})
+    $("<h4>").text("試算表").css({textAlign: "center"})
     .appendTo('body');   
     $("<br>").appendTo('body');
     $("<table>").css({width:"100% !important",margin:"auto"})
@@ -370,5 +361,4 @@ $(function() {
   }  
   
 })
-
 
