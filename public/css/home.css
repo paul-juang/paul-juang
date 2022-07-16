@@ -19,7 +19,7 @@ General Styles
     background-color: #444;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
     width: 100vw;
     height: 100vh;
    }
@@ -56,7 +56,7 @@ General Styles
     display: block;
     padding: 0;
     text-decoration: none;
-    text-align: center; 
+    text-align: center top; 
   }
 
   .nav-bar ul li:hover > ul {
@@ -83,6 +83,11 @@ General Styles
   }
 
 @media screen and (max-width: 1234px) {
+
+  body {
+    background-position: center top;
+  }
+
   .nav-bar ul {
     display: flex;
     flex-direction: column;
@@ -109,6 +114,10 @@ General Styles
   #check:checked ~ ul li {
     left: 0;
   }
+}  
 
-}       
-  
+@media screen and (max-width: 600px) {
+  .nav-bar ul li {
+    font-size: 1rem;
+  }      
+} 
