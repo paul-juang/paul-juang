@@ -1,8 +1,8 @@
 $(function() { 
 
-  let imgUrl = "https://apod.nasa.gov/apod/image/1907/moon_eclipse_span.jpg";
+  //let imgUrl = "https://apod.nasa.gov/apod/image/1907/moon_eclipse_span.jpg";
   //let imgUrl = "https://apod.nasa.gov/apod/image/1909/DaVinciRisingLikaiLin.jpg";
-  //let imgUrl = "https://apod.nasa.gov/apod/image/1811/1809112022d850cZeilamoonset1024.jpg";
+  let imgUrl = "https://apod.nasa.gov/apod/image/1811/1809112022d850cZeilamoonset1024.jpg";
   //let imgUrl = "https://apod.nasa.gov/apod/image/1905/CatsEye_HubblePohl_1278.jpg";
   //let imgUrl = "https://apod.nasa.gov/apod/image/1909/K218b_ESAKornmesser_6000.jpg";
 
