@@ -1,6 +1,10 @@
 $(function() { 
-  let imgUrl = "https://apod.nasa.gov/apod/image/1909/DaVinciRisingLikaiLin.jpg";
-  //let imgUrl = "https://apod.nasa.gov/apod/image/1907/moon_eclipse_span.jpg";
+
+  let imgUrl = "https://apod.nasa.gov/apod/image/1907/moon_eclipse_span.jpg";
+  //let imgUrl = "https://apod.nasa.gov/apod/image/1909/DaVinciRisingLikaiLin.jpg";
+  //let imgUrl = "https://apod.nasa.gov/apod/image/1811/1809112022d850cZeilamoonset1024.jpg";
+  //let imgUrl = "https://apod.nasa.gov/apod/image/1905/CatsEye_HubblePohl_1278.jpg";
+  //let imgUrl = "https://apod.nasa.gov/apod/image/1909/K218b_ESAKornmesser_6000.jpg";
 
  let accountingArr = [
    {text:'普通分錄', href:'/ledger'},
@@ -19,7 +23,7 @@ $(function() {
 
  let lotoArr = [
    {text:'大樂透投注', href:'/loto649'},
-   {text:'大樂透中獎比對', href:'/asloto649'},
+   {text:'大樂透中獎比對', href:'/asloto649'},//asloto6492
    {text:'大樂透中獎摘要', href:'/coloto649'},
    {text:'今彩539投注', href:'/loto539'},
    {text:'今彩539中獎比對', href:'/asloto539'},
@@ -27,12 +31,12 @@ $(function() {
  ]
 
  let lotostatArr = [
-   {text:'大樂透中獎統計', href:'/suloto649'},
-   {text:'大樂透統計分析', href:'/suloto649x'}, 
    {text:'大樂透號碼摘要', href:'/preloto649'},
-   {text:'今彩539中獎統計', href:'/suloto539'}, 
-   {text:'今彩539統計分析', href:'/suloto539x'},
-   {text:'今彩539號碼摘要', href:'/preloto539'}   
+   {text:'大樂透統計分析', href:'/test649'},//suloto649
+   {text:'大樂透下期預測', href:'/pretest649'}, //suloto649x
+   {text:'今彩539號碼摘要', href:'/preloto539'},   
+   {text:'今彩539統計分析', href:''},//
+   {text:'今彩539下期預測', href:''}   //
   ]
 
  $('body').css({'background-image':`url(${imgUrl})`})
@@ -43,14 +47,12 @@ $(function() {
   <label for="check" class="checkbtn"><i class="fas fa-bars" id="bars"></i></label>    
   <ul>
     <li>
-      <a href='#'>會計系統
-        <i class='fa fa-caret-down'></i>
-      </a>
+      <a href='#'>會計系統<i class='fa fa-caret-down'></i></a>
       <ul>
         ${accountingArr.map(function(obj) {
           return `
-          <li class='dropdown'>
-          <a href=${obj.href}>${obj.text}</a>
+          <li>
+            <a href=${obj.href}>${obj.text}</a>
           </li>
           `
         }).join('')}
@@ -64,7 +66,7 @@ $(function() {
       <ul>
         ${treeArr.map(function(obj) {
           return `
-          <li class='dropdown'>
+          <li>
           <a href=${obj.href}>${obj.text}</a>
           </li>
           `
@@ -87,7 +89,7 @@ $(function() {
       <ul>
         ${lotoArr.map(function(obj) {
           return `
-          <li class='dropdown'>
+          <li>
           <a href=${obj.href}>${obj.text}</a>
           </li>
           `
@@ -102,14 +104,14 @@ $(function() {
       <ul>
         ${lotostatArr.map(function(obj) {
           return `
-          <li class='dropdown'>
+          <li>
           <a href=${obj.href}>${obj.text}</a>
           </li>
           `
         }).join('')}
       </ul>
     </li>
-
+    
   </ul>
   `)
 
