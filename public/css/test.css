@@ -1,0 +1,63 @@
+/* --------------------------
+General Styles 
+----------------------------- */
+  :root {
+     --color-primary: #0073ff;
+     --color-white: #e9e9e9;
+     --color-black: #141d28;
+     --color-black-1: #212b38;
+   }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   } 
+
+  body {
+    font-family: sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+    width: 100vw;
+    height: 100vh;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: blue;
+   }
+
+   .container {
+     margin: 20px 20px;
+   }
+
+
+   ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-left: 1rem;
+  }
+
+  ul li > ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  .ul li {
+    width: 100vw;
+    padding: 1rem 1rem;
+  }
+
+  .ul li a {
+    display: block;
+    margin-left: 1rem;
+  }
+
+@media screen and (max-width: 600px) {
+  .ul li a {
+    font-size: 1rem;
+ } 
+
