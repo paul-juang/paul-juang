@@ -57,7 +57,7 @@ General Styles
   }
 
 @media screen and (max-width: 600px) {
-  .ul li a {
+  body {
     font-size: 1rem;
- } 
-
+  } 
+}
