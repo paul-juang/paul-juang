@@ -13,35 +13,28 @@ const Loto539 = require('../models/loto539');
 const Loto649 = require('../models/loto649');
 
 
-//test test649/pretest649
-router.get("/test649",function(req, res) {
- res.render("test649");
+router.get("/analoto649",function(req, res) {
+ res.render("analoto649");
 });
 
-router.post("/test649/json",function(req, res) {
-   let reduceObj = req.body.reduceObj;
-   let json = JSON.stringify(reduceObj);
-      fs.writeFile('reduceObj.json', json, 'utf8', function(err) { 
-        if (err) {
-          console.log("write reduceObj.json error!")
-        }
-          //console.log(JSON.stringify(reduceObj,null,2))
-          console.log("write reduceObj.json success!")
-      })
-  res.json({post: "sucess"})
+router.get("/analoto539",function(req, res) {
+ res.render("analoto539");
 });
 
-
-router.get("/pretest649",function(req, res) {
- res.render("pretest649");
+router.get("/nxtloto649",function(req, res) {
+ res.render("nxtloto649");
 });
 
-router.get("/loto539",function(req, res) {
-  res.render("loto539");
+router.get("/nxtloto539",function(req, res) {
+ res.render("nxtloto539");
 });
 
 router.get("/loto649",function(req, res) {
   res.render("loto649");
+});
+
+router.get("/loto539",function(req, res) {
+  res.render("loto539");
 });
 
 router.get("/asloto649",function(req, res) {
