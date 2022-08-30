@@ -23,12 +23,21 @@ $(function() {
   })
 
   $("#selectdate").val("").on("change", function() {
+    let prevfile = loto649.filter(function(obj) {
+      return obj["date"] > $("#selectdate").val()
+    })
+
+    let prelotonum = []
+    if (prevfile.length > 0 ) 
+      prelotonum = prevfile[(prevfile.length)-1]["lotonum"].sort((a,b) => a-b)
     let arrOnChange = loto649.filter(obj => obj["date"] <= $("#selectdate").val())
     let baseArr = arrOnChange.slice(1,arrOnChange.length)
     let basefilerarr = baseArr.filter(obj => obj["summary"])
     let summaryArr = basefilerarr.map(obj => obj["summary"])
     let totalrecord = summaryArr.length
+
     let reduceArr = getReduceArr(summaryArr)
+    calcStatistics(reduceArr)
     updPcnt(reduceArr,totalrecord)
     getMaxnSum(reduceArr)
 
@@ -40,26 +49,37 @@ $(function() {
 
     let obj60 = getDiffnProb(arr60)
     let objmindiff = getMindiff(arrmin)
-    let objmaxdiff = getMindiff(arrmax)
+    let objmaxdiff = getMindiff(arrmax) //arrmax vs arrmin same function
+
     let summary = [];
-    for (let i = 1; i <= 49; i++) {
-      let tempobj = {}, num = "";
-      if (i < 10) {
-        num = "0" + i;
-      } else {
-        num = String(i);
-      }    
-            
+    Object.keys(reduceArr).sort((a,b)=>a-b).forEach(num => {      
+      let tempobj = {}
       let diff = obj60[num]["deviation"]
       let intv = obj60[num]["neardist"];
+      reduceArr[num]["7.statistics"]["lastintv"] = intv
+
       let p = obj60[num]["prob"];    
       let mindiff = objmindiff[num]["deviation"];
       let maxdiff = objmaxdiff[num]["deviation"];
-
       let diffpcnt = 0,mindiffpcnt = 0,maxdiffpcnt = 0,intvpcnt = 0 
+      /*if (num === prelotonum[0] || num === prelotonum[1] || num === prelotonum[2] || 
+          num === prelotonum[3] || num === prelotonum[4] || num === prelotonum[5] ) {
+        getzprobability(reduceArr, num, "2.diff", diff)
+      }*/
+
+      if (num === "16"  || num === "17") {
+        getzprobability(reduceArr, num, "2.diff", diff)
+        getzprobability(reduceArr, num, "3.mindiff", mindiff)
+        getzprobability(reduceArr, num, "4.maxdiff", maxdiff)
+        getzprobability(reduceArr, num, "5.intv", intv)
+      }
+     
+
       if (reduceArr[num]["2.diff"][diff]) {
         diffpcnt = reduceArr[num]["2.diff"][diff]["pcnt"]
-      }
+      } //else {
+        //diffpcnt = getzprobability(reduceArr, num, "2.diff", diff)
+      //}
       if (reduceArr[num]["3.mindiff"][mindiff]) {
         mindiffpcnt = reduceArr[num]["3.mindiff"][mindiff]["pcnt"]
       }
@@ -85,21 +105,104 @@ $(function() {
       tempobj['intv'] = intv;
       tempobj['p'] = p;
       tempobj['pn'] = pn;
-      summary.push(tempobj)      
+      summary.push(tempobj) 
+    })       
+    console.log("reduceArr:", reduceArr)
+/*
+let diff = reduceArr['01']["2.diff"]
+    //console.log("diff:", diff)
+
+let diffkeys = Object.keys(diff)
+let keyarr = diffkeys.reduce((arr, num) => {
+    let obj = {}
+    if (num !="max") {
+      obj[num] = diff[num]["count"]
+      arr.push(obj)
     }
+    return arr
+}, [])
+let xttl = 0
+keyarr.forEach(obj => {
+  for (let key in obj) {
+    xttl = xttl + key * obj[key]
+  }
+})
+let xmn = xttl/keyarr.length
+console.log("keyarr:", keyarr)
+console.log("xttl:", xttl)
+console.log("xmn:", xmn)
+*/
     let prenum649 = [{date: date, summary: summary}];
     console.log("prenum649", prenum649)
-    //prenum649[0].summary.sort((a, b) => b.pn - a.pn)
-    prenum649[0].summary.sort((a, b) => a - b)
-    renderTable(prenum649);
+    prenum649[0].summary.sort((a, b) => b.pn - a.pn)
+    //prenum649[0].summary.sort((a, b) => a - b)
+    renderTable(prenum649, prelotonum);
    })
-
 })
+function getzprobability(reduceArr, num, option, diff) {
+  let diffobj = reduceArr[num][option]
+  let diffkeys = Object.keys(diffobj)
+  let keyarr = diffkeys.reduce((arr, num) => {
+      let obj = {}
+      if (num !="max") {
+         obj[num] = diffobj[num]["count"]
+         arr.push(obj)
+      }
+      return arr
+  }, [])
+
+  let ttl = 0
+  let n = 0
+  keyarr.forEach(obj => {
+  for (let key in obj) {
+    ttl = ttl + (key * obj[key])
+    n = n + obj[key]
+   }
+ })
+ let mean = ttl/n
+
+ let ttls2 = 0
+ keyarr.forEach(obj => {
+  for (let key in obj) {
+    let s2 = Math.pow((key - mean),2) * obj[key]
+    ttls2 = ttls2 + s2
+   }
+ })
+ let sd = Math.sqrt(ttls2/(n-1))
+ let z = Math.abs((diff - mean))/sd
+  console.log("num", num)
+  console.log("keyarr", keyarr)
+    console.log("ttl", ttl)
+    console.log("n", n)
+
+  console.log("mean", mean)
+    console.log("ttls2", ttls2)
+    console.log("sd", sd)
+    console.log("diff", diff)
+    console.log("z", z)
+
+  return 
+}
+
 
 function getReduceArr(summaryArr) {
-  let reduceArr = summaryArr.reduce((sumObj, arr) => {
-  arr.forEach(obj => {
+  console.log("summaryArr", summaryArr)
+  let reversearr = [];   //revserse order of arrofobj elements
+  for (var i = summaryArr.length - 1; i >= 0; i--) {
+         reversearr.push(summaryArr[i]);
+       }
+  console.log("reversearr", reversearr)
+
+  let reduceArr = reversearr.reduce((sumObj, arr, index) => {
+
+    arr.forEach(obj => {
     sumObj[obj.num] = sumObj[obj.num] || {}
+    if (sumObj[obj.num]["0.index"]) {
+      sumObj[obj.num]["0.index"].push(index)
+    } else{
+      sumObj[obj.num]["0.index"]= [index]
+    }
+
     if (sumObj[obj.num]["1.count"]) {
       sumObj[obj.num]["1.count"]++
     } else {
@@ -147,6 +250,62 @@ function getReduceArr(summaryArr) {
   },{})
 
   return reduceArr
+}
+
+function calcStatistics(reduceObj) {
+  Object.keys(reduceObj).sort((a,b) => a-b)
+  .forEach(num => {
+    let idxArr = reduceObj[num]["0.index"]
+    let intvarr = []
+    for (let i = 0; i < idxArr.length-1; i++) {
+      let intv = idxArr[i+1] - idxArr[i]
+      intvarr.push(intv)
+    }
+
+    let len = intvarr.length   
+    let ttlval = intvarr.reduce((sum, val) => sum + val)
+    let mean = ttlval/intvarr.length
+    let s2 = 0 
+    intvarr.forEach(num => {
+      s2 = s2 + Math.pow((num - mean), 2)
+    })
+        let s20 = s2
+    s2 = s2/(intvarr.length - 1)
+        let s22 = s20/intvarr.length
+
+    let stdeviation = Math.sqrt(s2).toFixed(2)
+        let stdeviation2 = Math.sqrt(s22).toFixed(2)
+
+    stdeviation = parseFloat(stdeviation)
+        stdeviation2 = parseFloat(stdeviation2)
+
+    let up95 = Math.round(mean + 2*stdeviation)
+        let up90 = Math.round(mean + 1.645*stdeviation)
+        let up952 = Math.round(mean + 2*stdeviation2)
+
+    reduceObj[num]["7.statistics"] = {}
+    reduceObj[num]["7.statistics"]["arrofintv"] = intvarr
+    reduceObj[num]["7.statistics"]["mean"] = mean
+        //reduceObj[num]["7.statistics"]["ttlval"] = ttlval
+
+    reduceObj[num]["7.statistics"]["s2"] = s2
+       //reduceObj[num]["7.statistics"]["s20"] = s20
+       //reduceObj[num]["7.statistics"]["s22"] = s22
+    reduceObj[num]["7.statistics"]["sd"] = stdeviation
+       //reduceObj[num]["7.statistics"]["sd2"] = stdeviation2
+    reduceObj[num]["7.statistics"]["up95"] = up95
+        //reduceObj[num]["7.statistics"]["up90"] = up90
+       //reduceObj[num]["7.statistics"]["up952"] = up952
+  })
+
+}
+
+// get next winning numbers composit probability 
+// 1.z-score of probability distribution based on sample mean, s2, sd
+// 2. probability based on previous diff, mindiff,maxdiff intv and p >0.90
+// 3. diff&&mindiff&&maxdiff<=0, diff===mindiff===maxdiff
+function getCompProb(reduceArr,totalrecord ) {
+  
 }
 
 function updPcnt(reduceArr,totalrecord) {
@@ -257,7 +416,7 @@ function getMaxnSum(reduceArr) {
 }
 
 
-function renderTable(objarr) {
+function renderTable(objarr, prelotonum) {
  
     $('#divtable').html("");
     $("<h4>").text("大樂透下期預測").css({textAlign: "center",fontWeight:"bold",color:"blue"})
@@ -286,11 +445,17 @@ function renderTable(objarr) {
       let tbody = $(id);
 
       obj.summary.forEach(function(obj, idx) {
+        let colornum = "blue"
         let colordiff = "blue";
         let colordmindiff = "blue";
         let colormaxdiff = "blue";
+        let colorintv = "blue";
         let colorp = "blue";
-   
+        
+        prelotonum.forEach(prenum => {
+          if(obj.num === prenum) colornum = "red"
+        })
+
         if (obj.diff < 0) {
           colordiff = "red";
         }
@@ -303,13 +468,17 @@ function renderTable(objarr) {
           colordmindiff = "red";
         }
 
+        if (obj.intv >= 16) {
+          colorintv = "red";
+        }
+
         if (obj.pn >= 0.9) {
           colorp = "red";
         }
 
         $("<tr>").css({textAlign:"center"})                        
         .append($("<td>")   
-         .append($("<input>") .attr({type:"text",class:"flex"}).css({textAlign:"center",fontWeight:"bold",color:"blue"}).prop("readonly",true)
+         .append($("<input>") .attr({type:"text",class:"flex num"}).css({textAlign:"center",fontWeight:"bold",color:colornum}).prop("readonly",true)
            .val(obj.num+" - "+idx))
          )
         .append($("<td>") 
@@ -325,7 +494,7 @@ function renderTable(objarr) {
            .val(obj.maxdiff))
          )     
         .append($("<td>")   
-         .append($("<input>") .attr({type:"text",class:"flex"}).css({textAlign:"center",fontWeight:"bold",color:"blue"}).prop("readonly",true)
+         .append($("<input>") .attr({type:"text",class:"flex"}).css({textAlign:"center",fontWeight:"bold",color:colorintv}).prop("readonly",true)
            .val(obj.intv))
          )
         /*.append($("<td>")
@@ -337,6 +506,12 @@ function renderTable(objarr) {
            .val(String(obj.pn).substr(0,4)))
          )              
         .appendTo(tbody);
+      })
+
+      document.querySelectorAll(".num").forEach(num => {
+        num.onclick = () => {
+          num.style.color === "red" ? num.style.color = "blue" : num.style.color = "red"
+        }
       })
    
     })
